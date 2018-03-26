@@ -1,0 +1,9 @@
+.recommenders/
+.metadata/
+studievagledning/
+RemoteSystemsTempFiles/
+
+.project
+.classpath
+bin/
+.settings/
