@@ -1,6 +1,5 @@
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.List;
+
+import java.util.*;
 
 /**
  * SpecialStack is a class implementing a Deque to get a proper stack behaviour using the most suited collection
@@ -55,6 +54,18 @@ public class SpecialStack {
 	 * Prints the stack as a regular array
 	 */
 	public String toString() {
-		return stack.toString();
+		if(stack.isEmpty()) {
+			return "[]";
+		} else {
+			List<Integer> ints = new ArrayList<>();
+			ints.addAll(stack);
+			StringBuilder sb = new StringBuilder();
+			sb.append("[");
+			for (int i = ints.size() - 1; i > -1; i--) {
+				sb.append(ints.get(i) + ", ");
+			}
+			sb.append("]");
+			return sb.toString().replaceAll(", ]", "]");
+		}
 	}
 }

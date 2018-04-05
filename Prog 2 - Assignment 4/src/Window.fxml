@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+		fx:controller="application.Activity" >
+		
+	<top>
+		<MenuBar>
+			<menus>
+				<Menu text="File">
+					<MenuItem text="Exit" onAction="#exit" />
+				</Menu>
+				<Menu text="Animations">
+					<MenuItem text="Play" onAction="#playAnimations"/>
+					<MenuItem text="Pause" onAction="#pauseAnimations"/>
+					<MenuItem text="Resume" onAction="#resumeAnimations"/>
+					<MenuItem text="Stop" onAction="#stopAnimations"/>
+				</Menu>
+			</menus>
+		</MenuBar>
+		
+		<ComboBox fx:id="ballColor">
+		</ComboBox>
+	</top>
+	
+	
+	<center>
+	
+	</center>
+</BorderPane>
+

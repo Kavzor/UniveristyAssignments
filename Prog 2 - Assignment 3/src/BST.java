@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Binary search tree with strings as keys.
@@ -146,14 +148,14 @@ public class BST {
 	 * @return the smallest key
 	 */
 	public String smallest() {
+		if(root == null) {
+			throw new BSTException("Tree is empty");
+		}
 		return smallest(root);
 	}
 	
 	private static String smallest(Node root) {
-		if(root == null) {
-			return null;
-		}
-		else if(root.left == null) {
+		if(root.left == null) {
 			return root.key;
 		}
 		else {
@@ -190,7 +192,6 @@ public class BST {
 
 	private static BST copy(Node root, BST target) {
 		if(root != null) {
-
 			target.add(root.key);
 			target = copy(root.left, target);
 			target = copy(root.right, target);
@@ -234,36 +235,21 @@ public class BST {
 	 * TODO: NOT CHECKED
 	 */
 	public boolean sameContents(BST t) {
-		return sameContent(this, t.root, true);
+		return sameContent(this, t.root, true) && sameContent(t, this.root, true);
 	}
 
-	private static boolean sameContent(BST bst, Node sRoot, boolean equal) {
-		if(sRoot == null) {
+	private static boolean sameContent(BST tree, Node root, boolean found) {
+		if(root == null) {
 			return true;
 		}
-		else {
-			if(bst.contains(sRoot.key) && equal) {
-				equal = sameContent(bst, sRoot.left, equal);
-				equal = sameContent(bst, sRoot.right, equal);
-				return equal;
-			}
-			else {
-				return false;
-			}
+		else if(tree.contains(root.key) && found) {
+			found = sameContent(tree, root.left, found);
+			found = sameContent(tree, root.right, found);
+			return found;
 		}
-		
-
-		/*if(fRoot == null ) {
+		else {
 			return false;
 		}
-		else if(fRoot.key.equals(sRoot.key)) {
-			return true;
-		}
-		else {
-			equal = sameContent(fRoot.left, sRoot, equal);
-			equal = sameContent(fRoot.right, sRoot, equal);
-			return equal;
-		}*/
 	}
 
 
@@ -287,12 +273,10 @@ public class BST {
 		if(root == null) {
 			return 0;
 		}
-		else if(root.left == null && root.right == null) {
-			return 1;
+		else {
+			pathLength += 1 + ipl(root.left, pathLength + 1) + ipl(root.right, pathLength + 1);
+			return pathLength;
 		}
-		int leftHeight = 1 + height(root.left, pathLength + 1); 
-		int rightHeight = 1 + height(root.right, pathLength + 1);
-		return leftHeight + rightHeight;
 	}
 
 
@@ -357,5 +341,10 @@ public class BST {
 		System.out.println("Tree: " + bst.toString() + ", size: " + bst.size() + ", height: " + bst.height());
 		System.out.println("Same content tree: " + sameTree.toString() + ", size: " + sameTree.size() + ", height: " + sameTree.height());
 		System.out.println("Same content: " + bst.sameContents(sameTree)  + "\n");
+
+		System.out.println("Adding jynx to tree");
+		bst.add("jynx");
+		System.out.println("IPL of tree is: " + bst.ipl());
+		System.out.println("IPL of sameContentTree is: " + sameTree.ipl());
 	}
 }

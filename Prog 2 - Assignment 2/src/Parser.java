@@ -72,6 +72,9 @@ public class Parser {
         if(tokenizer.getToken().equals("/")) {
         	tokenizer.nextToken();
         	prod /= factor();
+        	if(prod == Double.POSITIVE_INFINITY || prod == Double.NEGATIVE_INFINITY) {
+        		throw new EvaluationException("Cannot divide by zero");
+        	}
         }
     }
     return prod;

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.TextInputControl?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ColorPicker?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+		fx:controller="Interaction">
+	<top>
+		<MenuBar>
+			<menus>
+				<Menu text="File">
+					<Menu text="On Click">
+						<MenuItem text="Add Ball" onAction="#setClickAddBall" />
+						<MenuItem text="Remove Ball" onAction="#setClickRemoveBall" />
+						<MenuItem text="Add Blackbox" onAction="#setClickAddBlackBox" />
+						<MenuItem text="Remove Blackbox" onAction="#setClickRemoveBlackBox" />
+					</Menu>
+					<MenuItem text="Settings" />
+					<MenuItem text="Clear field" onAction="#clearField" />
+					<MenuItem text="Exit" onAction="#shutdown" />
+				</Menu>
+				<Menu text="Animations">
+					<MenuItem text="Start" onAction="#start" />
+					<MenuItem text="Pause" onAction="#pause" />
+				</Menu>
+			</menus>
+		</MenuBar>
+	</top>
+	
+	<center>
+		<Pane fx:id="mBallFrame" onMouseClicked="#handleFrameClick">
+		</Pane>
+	</center>
+	
+	<bottom>
+		<GridPane style="-fx-background-color: #ccc;">
+			<Text text="Default x speed" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+			<TextField GridPane.columnIndex="0" GridPane.rowIndex="1" 
+				fx:id="mXSpeed" text="0"/>
+			
+			<Text text="Default y speed" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+			<TextField GridPane.columnIndex="1" GridPane.rowIndex="1"
+				fx:id="mYSpeed" text="0"/>
+				
+			<Text text="Default radius" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+			<TextField GridPane.columnIndex="2" GridPane.rowIndex="1"
+				fx:id="mRadius" text="10"/>
+			
+			<Text text="Default Color" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+			<ColorPicker GridPane.columnIndex="3" GridPane.rowIndex="1"
+				fx:id="mColor" />
+				
+			<Text text="Gravity" GridPane.rowIndex="0" GridPane.columnIndex="5"/>
+			<TextField GridPane.columnIndex="5" GridPane.rowIndex="1"
+				fx:id="mGravity" onKeyReleased="#applyGravity"/>
+
+			<Text fx:id="mBallsAlive" GridPane.columnIndex="6" GridPane.rowIndex="1"/>
+			<Text fx:id="mFPS" GridPane.columnIndex="7" GridPane.rowIndex="1"/>
+
+		</GridPane>
+	</bottom>
+</BorderPane>
+

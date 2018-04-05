@@ -58,7 +58,7 @@ public class SortedList {
 			return new Node(x, n);
 		} else {
 			n.next = add(x, n.next);
-			return n;  
+			return n;
 		}
 	}
 
@@ -150,6 +150,9 @@ public class SortedList {
 	 * Should run in O(n) time if the list is of length n.
 	 */
 	public int getLast() {
+		if(first == null) {
+			throw new ListException("List is empty");
+		}
 		return getLast(first);
 	}
 
@@ -172,6 +175,9 @@ public class SortedList {
 	 * Should run in O(n) time if the list is of length n.
 	 */
 	public int getLastIter() {
+		if(first == null) {
+			throw new ListException("List is empty");
+		}
 		Node node = first;
 		while(node.next != null) {
 			node = node.next;
@@ -328,14 +334,14 @@ public class SortedList {
 	 * Should run in O(n+m) time if the list are of length n and m.
 	 */
 	public SortedList merge(SortedList l) {
-		return merge(this, l);
+		return merge(this, l.first);
 	}
 	
-	private static SortedList merge(SortedList first, SortedList second) {
-		if(second.first != null) {
-			int value = second.removeFirst();
+	private static SortedList merge(SortedList first, Node second) {
+		if(second != null) {
+			int value = second.data;
 			first.add(value);
-			merge(first, second);			
+			merge(first, second.next);			
 		}
 		return first;
 	}
