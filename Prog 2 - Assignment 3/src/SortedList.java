@@ -334,9 +334,100 @@ public class SortedList {
 	 * Should run in O(n+m) time if the list are of length n and m.
 	 */
 	public SortedList merge(SortedList l) {
-		return merge(this, l.first);
+		SortedList list = new SortedList();
+		list.first = merge(null, first, l.first);
+		return list;
 	}
 	
+	private static Node merge(Node top, Node first, Node second) {
+		if(first == null && second == null) {
+			return null;
+		}
+		if(first != null && (second == null || first.data < second.data)) {
+			top = new Node(first.data, null);
+			top.next = merge(top.next, first.next, second);
+		}
+		else {
+			top = new Node(second.data, null);
+			top.next = merge(top.next, first, second.next);
+		}	
+		return top;
+	}
+	/*private static Node merge(Node top, Node first, Node second) {
+		if(first == null || second == null) {
+			if(first == null && second == null) {
+				return null;
+			}
+			else if(first != null) {
+				top = new Node(first.data, null);
+				top.next = merge(top.next, first.next, second);
+			}
+			else {
+				top = new Node(second.data, null);
+				top.next = merge(top.next, first, second.next);
+			}
+		}
+		else {
+			if(first.data < second.data) {
+				top = new Node(first.data, null);
+				top.next = merge(top.next, first.next, second);
+			}
+			else {
+				top = new Node(second.data, null);
+				top.next = merge(top.next, first, second.next);
+			}
+		}
+		return top;
+	}*/
+	/*private static Node merge(Node top, Node first, Node second) {
+		if(first != null && second != null) {
+			if(first.data < second.data) {
+				top = new Node(first.data, null);
+				top.next = merge(top.next, first.next, second);
+			}
+			else {
+				top = new Node(second.data, null);
+				top.next = merge(top.next, first, second.next);
+			}
+		}
+		else if(first != null) {
+			top = new Node(first.data, null);
+			top.next = merge(top.next, first.next, second);
+		}
+		else if(second != null){
+			top = new Node(second.data, null);
+			top.next = merge(top.next, first, second.next);
+		}
+		return top;
+	}*/
+	
+	/*private static SortedList merge(SortedList list, Node first, Node second) {
+		if(first == null) {
+			if(second != null) {
+				list.add(second.data);
+				return merge(list, first, second.next);
+			}
+		}
+		else if(second == null) {
+			if(first != null) {
+				list.add(first.data);
+				return merge(list, first.next, second);
+			}
+		}
+		else {
+			if(first.data < second.data) {
+				list.add(first.data);
+				return merge(list, first.next, second);
+			}
+			else {
+				list.add(second.data);
+				return merge(list, first, second.next);
+			}
+		}
+		return list;
+	}*/
+	
+	/*
 	private static SortedList merge(SortedList first, Node second) {
 		if(second != null) {
 			int value = second.data;
@@ -344,7 +435,7 @@ public class SortedList {
 			merge(first, second.next);			
 		}
 		return first;
-	}
+	}*/
 
 	/**
 	 * Check if two lists contain the same data items
@@ -469,12 +560,22 @@ public class SortedList {
 			p.add((int)(Math.random()*15));
 			q.add((int)(Math.random()*15));
 		}
+		
 
 		System.out.println("\np: " + p);
 		System.out.println("q: " + q);
 		System.out.println("p.merge(q): " + p.merge(q));
+		
+		SortedList first = new SortedList();
+		SortedList second = new SortedList();
+		
+		for(int i = 0; i < 10; i++) {
+			first.add(i);
+			second.add(i);
+		}
+		
+		System.out.println("\np: " + first);
+		System.out.println("q: " + second);
+		System.out.println("p.merge(q): " + first.merge(second));
 	}
-
-
-
 }
