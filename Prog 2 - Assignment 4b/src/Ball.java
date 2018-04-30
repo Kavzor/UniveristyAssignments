@@ -1,6 +1,5 @@
 import java.util.Random;
 
-import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -9,19 +8,22 @@ import javafx.scene.shape.Circle;
  * Representates Ball objects in the frame
  */
 public class Ball extends Circle implements Role{
-  private final static int RAND_MAX_MIN_SPEED = 10;
-  private final static int MAX_MIN_OFFSET_SPEED = 5;
+	private final static int RAND_MAX_MIN_SPEED = 10;
+	private final static int MAX_MIN_OFFSET_SPEED = 5;
+
+	public final static double MAX_SPEED = 15;
+	public final static double MAX_RADIUS = 25;
 
 	private Vector directionVector;
 	private Vector positionVector;
 
-  /**
-   * Should be created through BallBuilder, made private to prevent direct instansiation
-   * @param speed
-   * @param position
-   * @param radius
-   * @param color
-   */
+	/**
+	 * Should be created through BallBuilder, made private to prevent direct instansiation
+	 * @param speed
+	 * @param position
+	 * @param radius
+	 * @param color
+	 */
 	private Ball(Vector speed, Vector position, double radius, Color color) {
 		directionVector = speed;
 		positionVector = position;
@@ -30,13 +32,13 @@ public class Ball extends Circle implements Role{
 		this.relocate(position.getX(), position.getY());
 	}
 
-  /**
-   * Generates moving ball speed in any one-dimensional direction
-   * @return - A random speed value
-   */
+	/**
+	 * Generates moving ball speed in any one-dimensional direction
+	 * @return - A random speed value
+	 */
 	private static int generateRandSpeed() {
-	  return new Random().nextInt(RAND_MAX_MIN_SPEED + 1) - MAX_MIN_OFFSET_SPEED;
-  }
+		return new Random().nextInt(RAND_MAX_MIN_SPEED + 1) - MAX_MIN_OFFSET_SPEED;
+	}
 
 	public Vector getDirectionVector() {
 		return directionVector;
@@ -54,11 +56,11 @@ public class Ball extends Circle implements Role{
 		this.positionVector = vector;
 	}
 
-  /**
-   * Checkes whatever two spheres are near enough to collide
-   * @param ball the collider
-   * @return if collider and current ball collides
-   */
+	/**
+	 * Checkes whatever two spheres are near enough to collide
+	 * @param ball the collider
+	 * @return if collider and current ball collides
+	 */
 	public boolean collide(Ball ball) {
 		if (getBoundsInLocal() == null || ball.getBoundsInLocal() == null) {
 			return false;
@@ -74,11 +76,11 @@ public class Ball extends Circle implements Role{
 		return (distance < minDist);
 	}
 
-  /**
-   * Used to create a ball using BallBuilder
-   * @param ballMaker - functional interface to make balls
-   * @return - The created ball
-   */
+	/**
+	 * Used to create a ball using BallBuilder
+	 * @param ballMaker - functional interface to make balls
+	 * @return - The created ball
+	 */
 	public static Ball create(BallMaker ballMaker) {
 		BallBuilder builder = new BallBuilder();
 		ballMaker.make(builder);
@@ -90,9 +92,9 @@ public class Ball extends Circle implements Role{
 		return Type.BALL;
 	}
 
-  /**
-   * Ball class follows the builder pattern design, thus implementing a inner static BallBuilder class
-   */
+	/**
+	 * Ball class follows the builder pattern design, thus implementing a inner static BallBuilder class
+	 */
 	public static class BallBuilder {
 		private Vector nestedPos;
 		private Vector nestedSpeed;
@@ -104,46 +106,46 @@ public class Ball extends Circle implements Role{
 			return this;
 		}
 
-    /**
-     *
-     * @param dx - Defaults to random if set to zero
-     * @param dy - Defaults to random if set to zero
-     * @return
-     */
+		/**
+		 *
+		 * @param dx - Defaults to random if set to zero
+		 * @param dy - Defaults to random if set to zero
+		 * @return
+		 */
 		public BallBuilder speed(double dx, double dy) {
-			if(dx <= 0) {
-			  dx = generateRandSpeed();
-			}
-			if(dy <= 0) {
-			  dy = generateRandSpeed();
-			}
+			dx = dx <= 0 ? generateRandSpeed() : dx;
+			dx = dx > MAX_SPEED ? MAX_SPEED : dx;
+			
+			dy = dy <= 0 ? generateRandSpeed() : dy;
+			dy = dy > MAX_SPEED ? MAX_SPEED : dy; 
+
 			nestedSpeed = new Vector(dx, dy);
 			return this;
 		}
-		
+
 		public BallBuilder color(Color color) {
 			nestedColor = color;
 			return this;
 		}
-		
+
 		public BallBuilder radius(double radius) {
 			nestedRadius = radius;
 			return this;
 		}
 
-    /**
-     * Returns the actual ball
-     * @return
-     */
-		public Ball build() {
+		/**
+		 * Returns the actual ball
+		 * @return
+		 */
+		private Ball build() {
 			return new Ball(nestedSpeed, nestedPos, nestedRadius, nestedColor);
 		}
 	}
 
-  /**
-   * Used to make balls
-   */
-  @FunctionalInterface
+	/**
+	 * Used to make balls
+	 */
+	@FunctionalInterface
 	public interface BallMaker {
 		void make(BallBuilder builder);
 	}

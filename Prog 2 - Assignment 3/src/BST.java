@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Binary search tree with strings as keys.
@@ -25,8 +23,7 @@ public class BST {
 	 * Inner class for TreeExceptions
 	 */
 	public static class BSTException extends RuntimeException {
-		private static final long serialVersionUID = -184166695032601334L;
-
+		
 		public BSTException(String msg) {
 			super(msg);
 		}
@@ -231,9 +228,6 @@ public class BST {
 	 * @param t the tree to be compared with
 	 * @return <code>true</code> if the trees have the same contents, else <code>false</code>
 	 */
-	/**
-	 * TODO: NOT CHECKED
-	 */
 	public boolean sameContents(BST t) {
 		return sameContent(this, t.root, true) && sameContent(t, this.root, true);
 	}
@@ -261,9 +255,6 @@ public class BST {
 	 * Thus, a tree with one node has ipl 1, 
 	 * a tree with two nodes has ipl 3 and a tree with three nodes 
 	 * ipl 5 or 6 depending on shape.
-	 */
-	/**
-	 * TODO: NOT CHECKED
 	 */
 	public int ipl() {
 		return ipl(root, 0);

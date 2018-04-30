@@ -5,14 +5,12 @@ import javafx.scene.Node;
  * Handles any vector related movement
  */
 public class BallAnimation {
-  /**
-   * Handles collision between two spheres
-   * @param currentNode - Collidee
-   * @param collisionNode - Collider
-   */
-	public void bounce(Node currentNode, Node collisionNode) {
-		Ball activeBall = (Ball) currentNode;
-		Ball collisionBall = (Ball) collisionNode;
+	/**
+	 * Handles collision between two spheres
+	 * @param currentNode - Collidee
+	 * @param collisionNode - Collider
+	 */
+	public static void bounce(Ball activeBall, Ball collisionBall) {
 		//activeBall.setRadius(activeBall.getRadius() + 0.1);
 
 		Vector activeOldSpeed = activeBall.getDirectionVector();
@@ -35,20 +33,20 @@ public class BallAnimation {
 						dot(activeOldPos.sub(collisionOldPos))) / 
 						(activeOldPos.sub(collisionOldPos).length() *
 								activeOldPos.sub(collisionOldPos).length())));
-		
+
 
 		collisionBall.setPositionVector(collisionOldPos.sub(collisionOldSpeed));
 		collisionBall.setDirectionVector(collisionNewSpeed);
-		
+
 		activeBall.setPositionVector(activeOldPos.sub(activeOldSpeed));
 		activeBall.setDirectionVector(activeNewSpeed);
 	}
 
-  /**
-   * Moves a world object (node) according to its' current position and speed
-   * @param node - Node to be moved
-   */
-	public void move(Node node) {
+	/**
+	 * Moves a world object (node) according to its' current position and speed
+	 * @param node - Node to be moved
+	 */
+	public static void move(Node node) {
 		Ball ball = (Ball) node;
 		Bounds parentBoundaries = node.getParent().getLayoutBounds();
 		double parentWidth = parentBoundaries.getWidth();
@@ -63,34 +61,34 @@ public class BallAnimation {
 		double y = posVector.getY();
 
 		if(x <= ball.getRadius()) {
-		  x = ball.getRadius() * 2;
-      dirVector = dirVector.flipSignX();
+			x = ball.getRadius() * 2;
+			dirVector = dirVector.flipSignX();
 		}
-    else if(x >= (parentWidth - ball.getRadius())) {
-      x = parentWidth - (ball.getRadius() * 2);
-      dirVector = dirVector.flipSignX();
-    }
+		else if(x >= (parentWidth - ball.getRadius())) {
+			x = parentWidth - (ball.getRadius() * 2);
+			dirVector = dirVector.flipSignX();
+		}
 
 		if(y <= ball.getRadius()) {
-		  y = ball.getRadius() * 2;
-		  dirVector = dirVector.flipSignY();
-    }
-    else if(y >= (parentHeight - ball.getRadius())) {
-      y = parentHeight - (ball.getRadius() * 2);
-      dirVector = dirVector.flipSignY();
-    }
-		
+			y = ball.getRadius() * 2;
+			dirVector = dirVector.flipSignY();
+		}
+		else if(y >= (parentHeight - ball.getRadius())) {
+			y = parentHeight - (ball.getRadius() * 2);
+			dirVector = dirVector.flipSignY();
+		}
+
 
 		ball.setPositionVector(new Vector(x, y));
 		ball.setDirectionVector(dirVector);
 	}
 
-  /**
-   * Used to animate or pre-movements when about to be consumed by a blackbox
-   * @param blackBox - Consumer
-   * @param ball - Consumed
-   */
-	public void consumeByBlackBox(BlackBox blackBox, Ball ball) {
+	/**
+	 * Used to animate or pre-movements when about to be consumed by a blackbox
+	 * @param blackBox - Consumer
+	 * @param ball - Consumed
+	 */
+	public static void consumeByBlackBox(BlackBox blackBox, Ball ball) {
 
-  }
+	}
 }

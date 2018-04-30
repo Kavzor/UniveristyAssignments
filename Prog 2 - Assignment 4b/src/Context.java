@@ -16,6 +16,9 @@ public class Context extends Application {
 	private static final double WINDOW_HEIGHT = 600.00;
 	private static final String WINDOW_TITLE = "Assignment 4 - Bouncing Ball";
 	private static final String WINDOW_MAIN_FXML = "Window.fxml";
+	
+	private Interaction mController;
+	
 
   /**
    * Launches the program
@@ -28,7 +31,14 @@ public class Context extends Application {
 	@Override
 	public void start(Stage stage) throws IOException {
 		
-		BorderPane ballWindow = FXMLLoader.load(getClass().getResource(WINDOW_MAIN_FXML));
+		FXMLLoader loader = new FXMLLoader();
+		
+		@SuppressWarnings("static-access")
+		BorderPane ballWindow = loader.load(
+				getClass().getResource(WINDOW_MAIN_FXML).openStream());
+		
+		mController = loader.getController();
+		//BorderPane ballWindow = FXMLLoader.load();
 
 		Scene window = new Scene(ballWindow, WINDOW_WIDTH, WINDOW_HEIGHT);
 		stage.setTitle(WINDOW_TITLE);
@@ -58,6 +68,9 @@ public class Context extends Application {
 	private void handleKey(KeyEvent event) {
 		if(Keystroke.isWCtrlPressed(event)) {
 			System.exit(0);
+		}
+		else if(Keystroke.isPCtrlPressed(event)) {
+			mController.togglePlay();
 		}
 	}
 }

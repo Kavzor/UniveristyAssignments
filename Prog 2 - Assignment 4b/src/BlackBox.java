@@ -5,7 +5,7 @@ import javafx.scene.shape.Rectangle;
  * Representates the blackboxes (deathboxes) in the frame
  */
 public class BlackBox extends Rectangle implements Role {
-  private static final double BLACKBOX_SIDE = 75.0;
+  private static final double BLACKBOX_SIDE = 75.0d;
 
   private Vector mPosition;
 

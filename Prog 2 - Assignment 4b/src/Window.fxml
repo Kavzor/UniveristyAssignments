@@ -48,11 +48,13 @@
 		<GridPane style="-fx-background-color: #ccc;">
 			<Text text="Default x speed" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
 			<TextField GridPane.columnIndex="0" GridPane.rowIndex="1" 
-				fx:id="mXSpeed" text="0"/>
+				fx:id="mXSpeed" text="0" onKeyReleased="#fieldChanges"
+				style="-fx-control-inner-background: #55ff00"/>
 			
 			<Text text="Default y speed" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 			<TextField GridPane.columnIndex="1" GridPane.rowIndex="1"
-				fx:id="mYSpeed" text="0"/>
+				fx:id="mYSpeed" text="0" onKeyReleased="#fieldChanges"
+				style="-fx-control-inner-background: #55ff00"/>
 				
 			<Text text="Default radius" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
 			<TextField GridPane.columnIndex="2" GridPane.rowIndex="1"
